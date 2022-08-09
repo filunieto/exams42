@@ -1,2 +1,2 @@
 # exam02
-42 exam exercices rank02 C
+42 exam exercises rank 02 C
