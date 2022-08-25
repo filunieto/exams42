@@ -11,3 +11,24 @@ Your function must be declared as follows:
 void	print_bits(unsigned char octet);
 
 Example, if you pass 2 to print_bits, it will print "00000010"
+
+De minitalk
+void	send_signals(char *message, int pid)
+{
+   int	shift;
+
+   shift = 0;
+
+	while (shift < 8) //hay que hcerlos 8 veces
+	{
+   		if (message[i] & (0x80 >> shift))
+   		{
+			write(1, "1", 1);
+   		}
+   		else
+   		{
+			write(1, "0", 1);
+   		}
+		shift++;
+	}
+}

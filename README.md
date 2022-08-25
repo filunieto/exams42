@@ -10,6 +10,7 @@ alias T="gcc -Wextra -Wall -Werror"
 
 Funciones importantes
 ft_split
+ft_atoi_base
 
 atoi
 	while (ft_isdigit(str[i]))
@@ -27,6 +28,7 @@ itoa
 cuenta cifras para malloquear (incluyend el signo menos)
 Si es 0 , lo tratamos aparte.
 nullterminamos el string, anadismo signo si lo hay
+
 char	*str_numb(char *number, unsigned int n, int cipher)
 {
 	while (n > 0)
@@ -41,7 +43,7 @@ void	ft_putnbr(int n)
 {
 	if (n > 9)
 		ft_putnbr(n / 10);
-	ft_putchar(n % 10 +'0');
+	ft_putchar(n % 10 + '0');
 }
 
 header
@@ -65,6 +67,10 @@ void	ft_list_foreach(t_list *begin_list, void (*f)(void *))
 Hacer:
 inter.c
 fprime.c
+ft_range
+minimo comun multiplo y max comun denom
+rostring
+
 
 Revisar
 hidenp
