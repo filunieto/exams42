@@ -69,6 +69,7 @@ inter.c
 fprime.c
 ft_range
 minimo comun multiplo y max comun denom
+pgcd.c , highest common denominator
 rostring
 
 
