@@ -81,3 +81,14 @@ Si la usamos, tener cuidado l usar un write , si imprime un NULL
 Para verificar un segmentation faul. Usar (printf + return)
 Atencion cuando el input es NULL.
 Proteger todas las funciones (includias ft_strlen)
+ATENCION!! -->	while (*str) //Importante 
+	{
+		array_words[i] = create_word(str);
+		if(!array_words[i])
+			return (free_array(array_words)); //este return,  necesito verificarlo
+		while (*str && !ft_isspace(*str))
+			str++;
+		while (*str && ft_isspace(*str))
+			str++;
+		i++;
+	}
