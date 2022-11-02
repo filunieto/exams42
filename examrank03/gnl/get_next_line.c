@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:34:52 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/02 18:15:17 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:22:44 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ char	*get_next_line(int fd)
 {
 	
     // char *string = malloc(10000), *copy = string;
-    //while (read(fd, copy, 1) > 0 && *copy++ != '\n');
+    // while (read(fd, copy, 1) > 0 && *copy++ != '\n');
     // return (copy > string) ? (*copy = 0, string) : (free(string), NULL);
-	
-	
+
 	char	*string;
 	char	*copy;
 
@@ -67,18 +66,15 @@ int main(void)
 {
 	int fd;
 	char *line;
-	//atexit(check_leaks);
+	atexit(check_leaks);
 	fd = open("text" ,O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		else
-			printf("%s", line);
-		
+		printf("%s", line);
+		free(line);
 	}
-
-	//free(line);
 	return (0);
 }
