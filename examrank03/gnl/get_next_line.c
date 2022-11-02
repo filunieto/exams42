@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 17:34:52 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/02 18:22:44 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:07:30 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
+
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 42
+#endif
 
 
 /*
@@ -42,13 +47,24 @@ char	*get_next_line(int fd)
 	copy = string;
     //while (read(fd, copy, 1) > 0 && *copy++ != '\n');
 
-	while(read(fd, copy, 1) > 0)
+	while(read(fd, copy, 1) > 0 )
 	{
 		if (*copy++ != '\n')
 		{
-			
+		}
+		else
+		{
+			break;
 		}
 	}
+	// while (1)
+	// {
+	// 	read(fd, copy, 1);
+	// 	if (*copy++ != '\n')
+	// 	{
+	// 		break;
+	// 	}
+	// }
 	if (copy > string)
 	{
 		*copy = 0;
@@ -66,15 +82,18 @@ int main(void)
 {
 	int fd;
 	char *line;
-	atexit(check_leaks);
+	//atexit(check_leaks);
 	fd = open("text" ,O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break;
-		printf("%s", line);
-		free(line);
-	}
+	line = get_next_line(fd); //string fro, gnl
+	printf("%s", line);
+
+	// while (1)
+	// {
+	// 	line = get_next_line(fd); //string fro, gnl
+	// 	if (!line)
+	// 		break;
+	// 	printf("%s", line);
+	// 	free(line);
+	// }
 	return (0);
 }
