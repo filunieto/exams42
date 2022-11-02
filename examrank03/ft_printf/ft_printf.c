@@ -6,7 +6,7 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:18:45 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/02 23:07:42 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/02 23:31:50 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	base_s(long num, unsigned int base, char *digits)
 	if (num < 0)
 	{
 		ft_putchar('-');
-		base_s(-num, base, digits);
+		base_uns(-num, base, digits);
 	}
 	else
 	{
-		base_s(num / base, base, digits);
+		base_uns(num / base, base, digits);
 	}
 }
 
@@ -92,4 +92,17 @@ int ft_printf(const char *format, ...)
 	va_end(args);
 	return (r);
 	
+}
+
+int main()
+{
+	int i;
+
+	char str[]= "felipe";
+	int numero = 8;
+	i = ft_printf("Frase, %s, %d, %x, \n", str, numero, numero);
+	printf("Mi funcion caracteres: %d\n", i);
+	i = printf("Frase, %s, %d, %x, \n", str, numero, numero);
+	printf("Funcion real caracteres: %d\n", i);
+	return (0);
 }
