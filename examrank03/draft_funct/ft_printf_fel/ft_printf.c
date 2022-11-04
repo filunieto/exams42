@@ -6,11 +6,11 @@
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:18:45 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/11/02 23:31:50 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/03 11:41:15 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//man va_arg 
+//man va_arg . Mi funcion abajo
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -59,7 +59,7 @@ void	base_s(long num, unsigned int base, char *digits)
 	}
 	else
 	{
-		base_uns(num / base, base, digits);
+		base_uns(num , base, digits);
 	}
 }
 
@@ -94,15 +94,32 @@ int ft_printf(const char *format, ...)
 	
 }
 
-int main()
-{
-	int i;
+//------------------------
 
-	char str[]= "felipe";
-	int numero = 8;
-	i = ft_printf("Frase, %s, %d, %x, \n", str, numero, numero);
-	printf("Mi funcion caracteres: %d\n", i);
-	i = printf("Frase, %s, %d, %x, \n", str, numero, numero);
-	printf("Funcion real caracteres: %d\n", i);
-	return (0);
+
+int main (void)
+{
+	char s[] = "felipe";
+	int i;
+	int number = -255;
+	i = ft_printf("Felipe funcion: %s, %d, %x \n", s, number , number);
+	printf("numero de caracteres mi funcion: %i\n", i);
+	i = printf("ORIGIN funcion: %s, %d, %x \n", s, number , number);
+	printf("numero de caracteres ORIG funcion: %i\n", i);
+	return 0;
 }
+
+
+
+// int main()
+// {
+// 	int i;
+
+// 	char str[]= "felipe";
+// 	int numero = 8;
+// 	i = ft_printf("Frase, %s, %d, %x, \n", str, numero, numero);
+// 	printf("Mi funcion caracteres: %d\n", i);
+// 	i = printf("Frase, %s, %d, %x, \n", str, numero, numero);
+// 	printf("Funcion real caracteres: %d\n", i);
+// 	return (0);
+// }
