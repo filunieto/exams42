@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   first_word.c                                       :+:      :+:    :+:   */
+/*   first_word_split.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnieves- <fnieves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:41:36 by fnieves-          #+#    #+#             */
-/*   Updated: 2022/08/11 11:33:56 by fnieves-         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:36:31 by fnieves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,23 @@ void free_array(char	**array_words, int i)
 	free (array_words);
 }
 
+/*
+	is it also ok for free? Could it tray to free rubish which
+	already existed before we malloqued the array?
+*/
+void free_array2(char	**array_words) 
+{
+	int i = -1;
+	while (array_words[++i])
+	{
+		free(array_words[i]);
+	}
+	free (array_words);
+}
+
+
+
+
 char    **ft_split(char *str)
 {
 	int number_words;
@@ -99,7 +116,10 @@ char    **ft_split(char *str)
 	{
 		array_words[i] = create_word(str);
 		if (!array_words[i])
+		{
 			free_array(array_words, i);
+			return (NULL);
+		}
 		i++;
 		while (!ft_isspace(*str) && *str)
 			str++;
