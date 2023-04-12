@@ -1,7 +1,20 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
-​
+
+/* Here is the explanation for the code above:
+1. First we check if there is a pipe or a semicolon in the arguments
+2. If there is a pipe, we create a pipe, and we fork the process.
+3. If we are in the child, we use the dup2 to replace the standard input with the fd[0] of the pipe, and we replace the standard output with the fd[1] of the pipe. We also close the fd[0] and fd[1] of the pipe, and the temporary file descriptor.
+4. We execute the command and close the file descriptor.
+5. If we are in the parent, we close the fd[1] of the pipe and the temporary file descriptor, and we replace the temporary file descriptor with the fd[0] of the pipe.
+6. If there is a semicolon, we fork the process.
+7. If we are in the child, we replace the standard input with the temporary file descriptor, and we close it.
+8. We execute the command and close the file descriptor.
+9. If we are in the parent, we close the temporary file descriptor, and we wait for the child to finish.
+10. We repeat the process until we have no more commands to execute.
+11. We close the temporary file descriptor, and return 0. */
+
 void putstr_fd2(char *str)
 {
 	int i = 0;
