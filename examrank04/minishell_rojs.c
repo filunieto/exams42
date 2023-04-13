@@ -2,6 +2,8 @@
 #include <sys/wait.h>
 #include <string.h>
 
+#define ERR_CD1 "error: cd: cannot change direcory to "
+
 /* Here is the explanation for the code above:
 1. First we check if there is a pipe or a semicolon in the arguments
 2. If there is a pipe, we create a pipe, and we fork the process.
@@ -22,17 +24,25 @@ void putstr_fd2(char *str)
 		i++;
 	write(2,str,i);
 }
-​
+
+/*
+	execve(argv[0], argv, env);
+
+1. It is a function that takes in 2 arguments: the command you want to execute, and an array of arguments to pass to the command.
+2. The function will fork a child process, and the child process will execve() the command.
+3. The parent process will wait for the child to finish. */
+
 int ft_execute(char *argv[], int i , char *env[])
 {
 	argv[i] = NULL;
+
 	execve(argv[0], argv, env);
 	putstr_fd2("error: cannot execute ");
 	putstr_fd2(argv[0]);
 	write(2, "\n", 1);
 	return(1);
 }
-​
+
 int main (int argc, char *argv[], char *env[])
 {
 	int i = 0;
@@ -40,39 +50,39 @@ int main (int argc, char *argv[], char *env[])
 	int fd[2];
 	int tmp_fd = dup(STDIN_FILENO);
 	(void)argc;
-​
-	while(argv[i] && argv[i+1])
+
+	while(argv[i] && argv[i+1]) //el primero es ./microshell y el seiguiente 
 	{
-		argv = &argv[i+1];
+		argv = &argv[i+1]; //analizamos el argumento
 		i = 0;
-		while(argv[i] && strcmp(argv[i], ";") && strcmp(argv[i], "|"))
+		while(argv[i] && strcmp(argv[i], ";") && strcmp(argv[i], "|")) //vamos contando cuantos entradas hay hasta econtrat ";" o "|"
 			i++;
-		if (strcmp(argv[0], "cd") == 0)
+		
+		if (strcmp(argv[0], "cd") == 0) //si encotramos cd
 		{
-			if( i != 2)
+			if( i != 2) //
 				putstr_fd2("error: cd: bad arguments");
-			else if(chdir(argv[1]) != 0)
+			else if(chdir(argv[1]) != 0) //man 2 chdir
 			{
-				putstr_fd2("error: cd: cannot change direcory to ");
-				putstr_fd2("error: cd: cannot change direcory to ");
+				putstr_fd2(ERR_CD1); //por qué 2 veces?
+				putstr_fd2(ERR_CD1);
 				write(2,"\n",1);
 			}
 		}
-		else if(i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0))
+		else if(i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0))  //si no es el primer elemento , && (es el último elemento ó hemos encontrado un ;)
 		{
 			pid = fork();
 			if(pid == 0)
 			{
 				dup2(tmp_fd, STDIN_FILENO);
-				close(tmp_fd);
+				close(tmp_fd); 
 				if(ft_execute(argv, i, env))
 					return 1;
 			}
 			else
 			{
 				close(tmp_fd);
-				while(waitpid(-1, NULL, WUNTRACED) != -1)
-					;
+				while(waitpid(-1, NULL, WUNTRACED) != -1);
 				tmp_fd = dup(STDIN_FILENO);
 			}
 		}
